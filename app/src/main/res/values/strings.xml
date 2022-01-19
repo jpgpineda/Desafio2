@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Desafio2</string>
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="createAccount">¿Todavía no tienes cuenta? Registrate</string>
+    <string name="back">Regresar</string>
+    <string name="signUpDetail">Estas a unos cuantos pasos de vivir la \nmejor experiencia</string>
+    <string name="signUpTitle">Registra tu información</string>
+    <string name="user">Usuario</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
+    <string name="signUp">Crear Cuenta</string>
+    <string name="greetings">Hola\n %1$s!</string>
+    <string name="mostPopulars">Más Populares</string>
+    <string name="books">Libros</string>
+    <string name="categories">Categorías</string>
+    <string name="authors">Autor</string>
+    <string name="recentlyAdded">Recién agregados</string>
+    <string name="description">Descripción</string>
+    <string name="details">Detalles</string>
+    <string name="aboutAuthor">Sobre el autor</string>
+    <string name="moreTitles">Más titulos del autor</string>
+    <string name="invalidEmail">El correo es requerido</string>
+    <string name="invalidPassword">La contraseña es requerida</string>
+    <string name="invalidUserName">El nombre de usuario es requerido</string>
+    <string name="invalidConfirmPassword">Las contraseñas no coinciden</string>
+</resources>
