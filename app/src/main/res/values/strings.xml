@@ -11,11 +11,11 @@
     <string name="user">Usuario</string>
     <string name="confirmPassword">Confirmar contraseña</string>
     <string name="signUp">Crear Cuenta</string>
-    <string name="greetings">Hola\n %1$s!</string>
+    <string name="greetings">Hola</string>
     <string name="mostPopulars">Más Populares</string>
     <string name="books">Libros</string>
     <string name="categories">Categorías</string>
-    <string name="authors">Autor</string>
+    <string name="authors">Autores</string>
     <string name="recentlyAdded">Recién agregados</string>
     <string name="description">Descripción</string>
     <string name="details">Detalles</string>
@@ -25,4 +25,8 @@
     <string name="invalidPassword">La contraseña es requerida</string>
     <string name="invalidUserName">El nombre de usuario es requerido</string>
     <string name="invalidConfirmPassword">Las contraseñas no coinciden</string>
+    <string name="bookSaved">Se ha guardado en tu wishList</string>
+    <string name="shareBook">Se ha compartido tu archivo</string>
+    <string name="invalidEmailFormat">No es un correo valido</string>
+    <string name="lorem">Lorem ipsum es un texto de marcador de posición comúnmente utilizado en las industrias gráficas, gráficas y editoriales para previsualizar diseños y maquetas visualesv</string>
 </resources>

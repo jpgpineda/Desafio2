@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.text.TextWatcher
 import android.text.Editable
 import androidx.core.content.ContextCompat
+import com.example.desafio2.Utils.isEmailValid
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
                 if (text.toString().trim().isEmpty()) {
                     til_email.error = getString(R.string.invalidEmail)
                     validateFields()
+                } else if (!text.toString().trim().isEmailValid()) {
+                    til_email.error = getString(R.string.invalidEmailFormat)
                 } else {
                     til_email.error = null
                     validateFields()
@@ -88,6 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
         tv_signUp.setOnClickListener {
             startActivity(Intent(this, SignUp::class.java))
+        }
+        login_button.setOnClickListener {
+            startActivity(Intent(this, Home::class.java))
         }
     }
 

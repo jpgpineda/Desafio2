@@ -1,12 +1,14 @@
 package com.example.desafio2
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
+import com.example.desafio2.Utils.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUp : AppCompatActivity() {
@@ -111,9 +113,10 @@ class SignUp : AppCompatActivity() {
             hideKeyboard()
         }
         signup_button.setOnClickListener {
-
+            User.name = tiet_userName.text.toString()
+            startActivity(Intent(this, Home::class.java))
         }
-        backTextView.setOnClickListener {
+        backToLogin_button.setOnClickListener {
             finish()
         }
     }
