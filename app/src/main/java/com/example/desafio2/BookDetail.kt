@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.desafio2.Entity.Book
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_book_detail.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.book_cell.*
 class BookDetail : AppCompatActivity() {
 
     private var parent_view: View? = null
+    private lateinit var book: Book
     var details: String = ""
     var description: String = ""
 
@@ -25,20 +27,26 @@ class BookDetail : AppCompatActivity() {
     }
 
     fun setupView() {
-        val intent = intent
-        book_title_label.text = intent.getStringExtra("bookName")
-        book_author_label.text = intent.getStringExtra("authorName")
-        book_category_label.text = intent.getStringExtra("category")
-        details = intent.getStringExtra("details") ?: getString(R.string.lorem)
-        val bookImage = intent.getStringExtra("bookImage")
-        description = intent.getStringExtra("description") ?: getString(R.string.lorem)
-        book_description_label.text = description
-        author_name_label.text = intent.getStringExtra("authorName")
-        author_description_label.text = intent.getStringExtra("authorDescription")
-        val authorImage = intent.getStringExtra("authorImage")
-        formatImage(bookImage ?: "", book_image_view)
-        formatImage(authorImage ?: "", author_profile_imageView)
+        intent.extras.let {
+            if (it != null) {
+                book = it.getSerializable("book") as Book
+                setBookData()
+            }
+        }
         setupListeners()
+    }
+
+    fun setBookData() {
+        book_title_label.text = book.attributes.title
+        book_author_label.text = book.relationships.authors.links.self
+        book_category_label.text = book.relationships.categories.links.self
+        book_description_label.text = book.attributes.content
+        author_name_label.text = book.relationships.authors.links.self
+        author_description_label.text = book.relationships.authors.links.related
+        description = book.attributes.content
+        details = book.attributes.createdAt
+        formatImage(book.links.self ?: "", book_image_view)
+        formatImage(book.relationships.authors.links.related ?: "", author_profile_imageView)
     }
 
     fun formatImage(image: String, container: ImageView) {

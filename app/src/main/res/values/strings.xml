@@ -29,4 +29,8 @@
     <string name="shareBook">Se ha compartido tu archivo</string>
     <string name="invalidEmailFormat">No es un correo valido</string>
     <string name="lorem">Lorem ipsum es un texto de marcador de posición comúnmente utilizado en las industrias gráficas, gráficas y editoriales para previsualizar diseños y maquetas visualesv</string>
+    <string name="noInternetConnection">No tienes conexión a internet</string>
+
+    // SharedPreferences
+    <string name="filePreferences">com.txl.abx.desafio.sharedPreferences</string>
 </resources>

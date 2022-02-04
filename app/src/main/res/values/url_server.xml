@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="baseUrl">https://playground-bookstore.herokuapp.com/api/v1/</string>
+
+    // Api Methods
+    <string name="PUT">PUT</string>
+    <string name="GET">GET</string>
+    <string name="POST">POST</string>
+
+    // API suffix
+    <string name="loginUrl">login</string>
+    <string name="registerUrl">register</string>
+    <string name="userUrl">user</string>
+    <string name="booksUrl">books</string>
+
+
+    // API KEYS
+    <string name="userNameApiKey">name</string>
+    <string name="emailApiKey">email</string>
+    <string name="passwordApiKey">password</string>
+    <string name="confirmPasswordApiKey">password_confirmation</string>
+    <string name="deviceNameApiKey">device_name</string>
+    <string name="token">token</string>
+</resources>

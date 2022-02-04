@@ -2,18 +2,41 @@ package com.example.desafio2
 
 import android.content.Context
 import android.content.Intent
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.addTextChangedListener
+import androidx.cardview.widget.CardView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.desafio2.Entity.ApiError
+import com.example.desafio2.Entity.Token
+import com.example.desafio2.Extensions.isOnline
+import com.example.desafio2.Extensions.showMessage
+import com.example.desafio2.SharedPreferences.login
+import com.example.desafio2.SharedPreferences.validateSession
 import com.example.desafio2.Utils.User
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 class SignUp : AppCompatActivity() {
 
     var isValidData: Boolean = true
+    private val TAG = SignUp::class.qualifiedName
+    private lateinit var loaderView: CardView
+    private lateinit var tietUserName: TextInputEditText
+    private lateinit var tietEmail: TextInputEditText
+    private lateinit var tietPassword: TextInputEditText
+    private lateinit var tietConfirmPassword: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +50,11 @@ class SignUp : AppCompatActivity() {
     fun setupView() {
         signup_button.isEnabled = false
         signup_button.setBackgroundColor(resources.getColor(R.color.background_gray))
+        loaderView = findViewById(R.id.loader_view)
+        tietUserName = findViewById(R.id.tiet_userName)
+        tietEmail = findViewById(R.id.tiet_signup_email)
+        tietPassword = findViewById(R.id.tiet_signup_password)
+        tietConfirmPassword  = findViewById(R.id.tiet_confirm_password)
     }
 
     fun setupListeners() {
@@ -114,10 +142,18 @@ class SignUp : AppCompatActivity() {
         }
         signup_button.setOnClickListener {
             User.name = tiet_userName.text.toString()
-            startActivity(Intent(this, Home::class.java))
+            requestSignUp()
         }
         backToLogin_button.setOnClickListener {
             finish()
+        }
+    }
+
+    fun requestSignUp() {
+        if (isOnline(applicationContext)) {
+            sendSignUpRequest()
+        } else {
+            showMessage(this, getString(R.string.noInternetConnection))
         }
     }
 
@@ -127,5 +163,31 @@ class SignUp : AppCompatActivity() {
         if (view != null) {
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    fun sendSignUpRequest() {
+        val json = JSONObject()
+        json.put(getString(R.string.userNameApiKey), tietUserName.text)
+        json.put(getString(R.string.emailApiKey), tietEmail.text)
+        json.put(getString(R.string.passwordApiKey), tietPassword.text)
+        json.put(getString(R.string.confirmPasswordApiKey), tietConfirmPassword.text)
+        json.put(getString(R.string.deviceNameApiKey), android.os.Build.MODEL)
+        val tail = Volley.newRequestQueue(applicationContext)
+        val url = getString(R.string.baseUrl) + getString(R.string.registerUrl)
+        loaderView.visibility = View.VISIBLE
+        val request = JsonObjectRequest(Request.Method.POST, url, json, { response ->
+            Log.d(TAG, response.toString())
+            val token = Json.decodeFromString<Token>(response.toString())
+            login(applicationContext, token.token)
+            loaderView.visibility = View.GONE
+            if (validateSession(applicationContext)) {
+                startActivity(Intent(this, Home::class.java))
+            }
+        }, { error ->
+            val apiError = Json.decodeFromString<ApiError>(error.toString()).errors.first()
+            Log.e(TAG, apiError.detail)
+            loaderView.visibility = View.GONE
+        })
+        tail.add(request)
     }
 }

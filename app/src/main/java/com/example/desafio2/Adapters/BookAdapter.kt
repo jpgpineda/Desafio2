@@ -2,6 +2,7 @@ package com.example.desafio2.Adapters
 
 import android.content.Intent
 import android.media.Image
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.Glide
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio2.BookDetail
-import com.example.desafio2.Models.Book
+import com.example.desafio2.Entity.Book
 import com.example.desafio2.R
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
@@ -40,10 +41,10 @@ class BookAdapter(val books: MutableList<Book>): RecyclerView.Adapter<BookAdapte
         val shareImage: ImageView = view.findViewById(R.id.share_image)
 
         fun render(book: Book) {
-            titleLabel.setText(book.title)
-            authorLabel.setText(book.author.name)
-            categoryLabel.setText(book.category)
-            Glide.with(view).load(book.image).error(R.drawable.blue_book).diskCacheStrategy(
+            titleLabel.setText(book.attributes.title)
+            authorLabel.setText(book.relationships.authors.links.self)
+            categoryLabel.setText(book.relationships.categories.links.self)
+            Glide.with(view).load(book.links.self).error(R.drawable.blue_book).diskCacheStrategy(
                 DiskCacheStrategy.NONE).into(bookImageView)
             setupListeners(book)
         }
@@ -57,14 +58,9 @@ class BookAdapter(val books: MutableList<Book>): RecyclerView.Adapter<BookAdapte
             }
             bookCardView.setOnClickListener {
                 val intent = Intent(view.context, BookDetail::class.java)
-                intent.putExtra("bookName", book.title)
-                intent.putExtra("authorName", book.author.name)
-                intent.putExtra("category", book.category)
-                intent.putExtra("details", book.details)
-                intent.putExtra("bookImage", book.image)
-                intent.putExtra("description", book.description)
-                intent.putExtra("authorDescription", book.author.about)
-                intent.putExtra("authorImage", book.author.image)
+                val bundle = Bundle()
+                bundle.putSerializable("book", book)
+                intent.putExtras(bundle)
                 view.context.startActivity(intent)
             }
         }
