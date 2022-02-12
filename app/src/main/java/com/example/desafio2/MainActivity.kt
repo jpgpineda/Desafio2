@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -57,7 +58,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSora() {
         //cambios de sora para actividad de taller
-        login_button.isEnabled = true
+        login_button.isEnabled = false
+        Toast.makeText(this, "hola", Toast.LENGTH_LONG).show()
+        //hola hola hola
+        validateFields()
     }
 
     fun setupView() {
