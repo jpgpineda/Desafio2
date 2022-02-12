@@ -56,8 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSora() {
-        //cambios de sora para actividad de taller
         login_button.isEnabled = true
+        setupView()
+        setupListeners()
+        validateFields()
     }
 
     fun setupView() {
