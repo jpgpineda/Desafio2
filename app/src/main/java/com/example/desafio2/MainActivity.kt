@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         setupView()
         setupListeners()
         setupEvents()
+        setupSora()
 
         /*
         Lorem Ipsum is simply dummy text of the printing and
@@ -52,6 +53,11 @@ class MainActivity : AppCompatActivity() {
           unchanged. It was popularised in the 1960s with the release of Letraset
            sheets containing Lorem Ipsum passages, and more recently with desktop
             publishing software like Aldus PageMaker including versions of Lorem Ipsum. */
+    }
+
+    private fun setupSora() {
+        //cambios de sora para actividad de taller
+        login_button.isEnabled = true
     }
 
     fun setupView() {
