@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        validateFields()
-        setupEvents()
         tiet_password.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
 
@@ -94,9 +92,13 @@ class MainActivity : AppCompatActivity() {
                 if (text.toString().trim().isEmpty()) {
                     til_password.error = getString(R.string.invalidPassword)
                     validateFields()
+                    validateFields()
+                    setupEvents()
                 } else {
                     til_password.error = null
                     validateFields()
+                    validateFields()
+                    setupEvents()
                 }
             }
         })
